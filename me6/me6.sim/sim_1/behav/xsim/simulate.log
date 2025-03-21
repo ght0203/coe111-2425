@@ -1,0 +1,3 @@
+Time resolution is 1 ps
+$finish called at time : 220 ns : File "/home/ebonifacio/Workspace/CoE111/me6/me6.srcs/sim_1/new/tb_top_rom.v" Line 52
+INFO: xsimkernel Simulation Memory Usage: 486160 KB (Peak: 543432 KB), Simulation CPU Usage: 680 ms
