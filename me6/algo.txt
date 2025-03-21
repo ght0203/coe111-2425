@@ -1,0 +1,58 @@
+output signals: segA, segB, segC, segD, segE, segF, segG, sel(control for display selection)
+format:
+    digit:
+        <the list of signals that are on (bit1) for seven segment display>
+List of hex digits:
+1:
+    segB, segC
+2:
+    segA, segB, segG, segE, segD
+3:
+    segA, segB, segG, segC, segD
+4: 
+    segF, segG, segB, segC
+5: 
+    segA, segF, segG, segC, segD
+6: 
+    segA, segF, segG, segC, segD, segE
+7: 
+    segA, segB, segC
+8: 
+    segA, segB, segC, segD, segE, segF, segG
+9: 
+    segA, segB, segG, segF, segC, segD
+a: 
+    segA, segB, segC, segE, segF, segG
+b: 
+    segF, segE, segG, segC, segD
+c: 
+    segA, segF, segE, segD
+d:
+    segB, segC, segG, segD, segE
+e: 
+    segA, segD, segE, segF, segG
+f: 
+    segA, segE, segF, segG
+
+algorithm:
+// create a rom module for the hex digits above
+rom romU1(digit, segA, segB,...segG)
+digit1 = 0; // 4 bit hex digit
+digit2 = 0; // 4 bit hex digit
+// dir is the direction bit (only input along with nrst, clk)
+digit = sel? digit2: digit1; // mux
+
+@ posedge clk:
+    if nrst {
+        digit1 = 0;
+        digit2 = 0;
+    }
+    inc = 1
+    if (dir) {
+        inc = -1
+    }
+    {digit1, digit2} += inc;
+
+@ posedge clk:
+    sel = ~sel; // used to rapidly switch between the 2 digit displays
+    // to create effect that both are on at the same time
