@@ -101,7 +101,7 @@ static void set_ports(bool RS, bool D7, bool D6, bool D5, bool D4)
     
     delay_us(1);
     PORT_SEC_REGS->GROUP[0].PORT_OUTCLR = (1U << 0);
-    delay_us(1);
+    delay_us(100);
 }
 
 static void PORT_init(void) 
