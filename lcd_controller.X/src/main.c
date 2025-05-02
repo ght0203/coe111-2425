@@ -19,37 +19,42 @@ int main() {
     PORT_init();
     
     debug_led_on();
-    delay_ms(15);
+    delay_us(20000);
     
     set_ports(0, 0, 0, 1, 1);
-    delay_ms(5);
+    delay_us(5000);
     set_ports(0, 0, 0, 1, 1);
-    delay_ms(5);
+    delay_us(5000);
     set_ports(0, 0, 0, 1, 1);
     set_ports(0, 0, 0, 1, 0);
+    delay_us(5000);
     
     // function set:
     set_ports(0, 0, 0, 1, 0);
     set_ports(0, 1, 1, 0, 0);
+    delay_us(5000);
     // display off:
     set_ports(0, 0, 0, 0, 0);
     set_ports(0, 1, 0, 0, 0);
+    delay_us(5000);
     // clear display:
     set_ports(0, 0, 0, 0, 0);
     set_ports(0, 0, 0, 0, 1);
+    delay_us(5000);
     // Entry Mode Set:
     set_ports(0, 0, 0, 0, 0);
     set_ports(0, 0, 1, 1, 0);
+    delay_us(5000);
     // Display On:
     set_ports(0, 0, 0, 0, 0);
     set_ports(0, 1, 1, 1, 1);
+    delay_us(5000);
     
     debug_led_off();
     
     while(true) {
         debug_led_tgl();
-        delay_ms(1000);
-        set_ports(1, 1, 0, 1, 0);
+        delay_us(1000000);
         set_ports(1, 0, 1, 0, 0);
         set_ports(1, 1, 1, 0, 0);
     }
@@ -58,15 +63,18 @@ int main() {
 }
 
 static void set_ports(bool RS, bool D7, bool D6, bool D5, bool D4)
-{
-    PORT_SEC_REGS->GROUP[0].PORT_OUTSET = (1U << 0);
+{   
     
     if (RS) {
         PORT_SEC_REGS->GROUP[0].PORT_OUTSET = (1U << 1);
     } else {
         PORT_SEC_REGS->GROUP[0].PORT_OUTCLR = (1U << 1);
     }
+
+    delay_us(1);
     
+    PORT_SEC_REGS->GROUP[0].PORT_OUTSET = (1U << 0);
+
     if (D4) {
         PORT_SEC_REGS->GROUP[0].PORT_OUTSET = (1U << 22);
     } else {
@@ -91,9 +99,9 @@ static void set_ports(bool RS, bool D7, bool D6, bool D5, bool D4)
         PORT_SEC_REGS->GROUP[1].PORT_OUTCLR = (1U << 22);
     }
     
-    delay_ms(1);
+    delay_us(1);
     PORT_SEC_REGS->GROUP[0].PORT_OUTCLR = (1U << 0);
-    delay_ms(1);
+    delay_us(1);
 }
 
 static void PORT_init(void) 

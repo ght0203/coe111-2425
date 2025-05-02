@@ -17,7 +17,7 @@ static volatile bool timeout_active = false;
 // *****************************************************************************
 static void (*timeout_callback)(void) = NULL;
 
-void delay_ms(uint16_t ms) {
+void delay_us(uint32_t us) {
     delay_pause = true;
         /* In one-shot timer mode, first disable the timer */
     TCC0_REGS->TCC_CTRLA &= ~TCC_CTRLA_ENABLE_Msk;
@@ -25,7 +25,7 @@ void delay_ms(uint16_t ms) {
     {
         /* Wait for Write Synchronization */
     }
-    TCC0_REGS->TCC_PER = (uint32_t)(ms * 46.875);
+    TCC0_REGS->TCC_PER = (uint32_t)(us * 3);
     while((TCC0_REGS->TCC_SYNCBUSY) != 0U);
     TCC0_REGS->TCC_CTRLA |= TCC_CTRLA_ENABLE_Msk;
     while((TCC0_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) == TCC_SYNCBUSY_ENABLE_Msk)
@@ -75,7 +75,7 @@ void DelayTimer_Initialize( void )
     }
 
     /* Configure counter mode & prescaler */
-    TCC0_REGS->TCC_CTRLA = TCC_CTRLA_PRESCALER_DIV1024 ;
+    TCC0_REGS->TCC_CTRLA = TCC_CTRLA_PRESCALER_DIV16 ;
     /* Configure in Match Frequency Mode */
     TCC0_REGS->TCC_WAVE = TCC_WAVE_WAVEGEN_NFRQ;
 

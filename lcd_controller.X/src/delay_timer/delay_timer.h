@@ -21,7 +21,7 @@ typedef struct
 
 void DelayTimer_Initialize( void );
 void TimeoutTimer_Initialize( void );
-void delay_ms(uint16_t ms);
+void delay_us(uint32_t us);
 void timeout_ms(uint16_t ms, void (*callback)(void));
 void stop_timeout(void);
 
