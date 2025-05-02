@@ -43,7 +43,7 @@ int main() {
     delay_us(5000);
     // Entry Mode Set:
     set_ports(0, 0, 0, 0, 0);
-    set_ports(0, 0, 1, 1, 0);
+    set_ports(0, 0, 1, 0, 0);
     delay_us(5000);
     // Display On:
     set_ports(0, 0, 0, 0, 0);
@@ -111,7 +111,7 @@ static void PORT_init(void)
     PORT_SEC_REGS->GROUP[0].PORT_DIRSET = (1U << 22); //D4
     PORT_SEC_REGS->GROUP[0].PORT_DIRSET = (1U << 21); //D5
     PORT_SEC_REGS->GROUP[0].PORT_DIRSET = (1U << 23); //D6
-    PORT_SEC_REGS->GROUP[1].PORT_DIRSET = (1U << 22); //D6
+    PORT_SEC_REGS->GROUP[1].PORT_DIRSET = (1U << 22); //D7
     PORT_SEC_REGS->GROUP[0].PORT_DIRSET = (1U << 15); //debug
 }
 
